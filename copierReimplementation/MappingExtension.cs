@@ -18,19 +18,19 @@ namespace System
                 return;
             }
             CopyFields(originalObject, destinationObject, typeToReflect);
-            CopyBaseTypeFields(originalObject, destinationObject, typeToReflect);
+            CopyBaseTypePrivateFields(originalObject, destinationObject, typeToReflect);
         }
 
-        private static void CopyBaseTypeFields(object originalObject, object cloneObject, Type typeToReflect)
+        private static void CopyBaseTypePrivateFields(object originalObject, object cloneObject, Type typeToReflect)
         {
             if (typeToReflect.BaseType != null)
             {
-                CopyBaseTypeFields(originalObject, cloneObject, typeToReflect.BaseType);
-                CopyFields(originalObject, cloneObject, typeToReflect.BaseType, BindingFlags.Instance | BindingFlags.NonPublic, info => info.IsPrivate);
+                CopyBaseTypePrivateFields(originalObject, cloneObject, typeToReflect.BaseType);
+                CopyFields(originalObject, cloneObject, typeToReflect.BaseType, BindingFlags.Instance | BindingFlags.NonPublic);
             }
         }
 
-        private static void CopyFields(object originalObject, object cloneObject, Type typeToReflect, BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.FlattenHierarchy, Func<FieldInfo, bool> filter = null)
+        private static void CopyFields(object originalObject, object cloneObject, Type typeToReflect, BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.FlattenHierarchy)
         {
             foreach (FieldInfo fieldInfo in typeToReflect.GetFields(bindingFlags))
             {
