@@ -178,9 +178,9 @@ namespace System
             if (type == typeof(String)) return true;
             return (type.IsValueType & type.IsPrimitive);
         }
-        public static void CopyFrom<T>(this T destination, T source)
+        public static void CopyFrom<T>(this T source, T template)
         {
-            RecursiveCopy(destination, source);
+            RecursiveCopy(source, template);
         }
     }
 }
