@@ -8,7 +8,6 @@ namespace consoleapp
     {
         static void Main(string[] args)
         {
-            var copiedObject = new ExampleRequest();
             var objectTemplate = new ExampleRequest
             {
                 BaseName = "base1",
@@ -54,6 +53,7 @@ namespace consoleapp
             };
             objectTemplate.BaseName = "changedBaseName";
 
+            var copiedObject = new ExampleRequest();
             copiedObject.CopyFrom(objectTemplate);
 
             Console.WriteLine("source--------------------------------------------------------- \n");
@@ -124,7 +124,7 @@ namespace consoleapp
 
 namespace System
 {
-    public static class ObjectExtensions
+    public static class MappingExtension
     {
         private static readonly MethodInfo CloneMethod = typeof(Object).GetMethod("MemberwiseClone", BindingFlags.NonPublic | BindingFlags.Instance);
 
